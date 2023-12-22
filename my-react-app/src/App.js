@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Header from './header'; // Import your Header component
+import CharacterRatings from './CharacterRatings'; // Import your CharacterRatings component
+import CharacterCard from './CharacterCard'; // Import your CharacterCard component
+import './App.css'; // Keep your global styles
+import characterData from '../fma-data';  // Import your character data
 
 function App() {
+  // Use the imported character data directly
+  // If you need to transform the data (sort, filter, etc.), you can do it here or in the respective components
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <CharacterRatings characters={characterData} /> {/* Pass imported character data as props */}
+      <section id="character-cards">
+        {characterData.map((character) => (
+          <CharacterCard
+            key={character.name} // Ensure 'name' is unique or use a different unique identifier
+            name={character.name}
+            nickname={character.nickname}
+            imageUrl={character.imageUrl}
+            description={character.description}
+          />
+        ))}
+      </section>
     </div>
   );
 }
